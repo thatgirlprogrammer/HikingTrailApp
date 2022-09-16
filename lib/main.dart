@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'AppController.dart';
+import 'Signup.dart';
+import 'Login.dart';
 
 void main() => runApp(const MyApp());
 
@@ -11,35 +14,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: _title,
-      home: AppController(),
+      home: FirstView(),
     );
   }
 }
 
-class AppController extends StatefulWidget {
-  const AppController({super.key});
+class FirstView extends StatelessWidget {
+  const FirstView({Key? key}) : super(key: key);
+  void _navigateToNextScreen(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => SignupWidget()));
+  }
 
-  @override
-  State<AppController> createState() => _AppControllerState();
-}
-
-class _AppControllerState extends State<AppController> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomeView(),
-    SearchWidget(),
-    Text(
-      'Index 2: Saved Trails',
-      style: optionStyle,
-    ),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  void _navigateToNextScreen1(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => LoginWidget()));
   }
 
   @override
@@ -48,140 +37,46 @@ class _AppControllerState extends State<AppController> {
         appBar: AppBar(
             title: const Text('Hiking Trails in Georgia'),
             centerTitle: true,
-            backgroundColor: Colors.red[600]
-        ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            backgroundColor: Colors.red[600]),
+        body: Column(children: <Widget>[
+          TextButton(
+            style: ButtonStyle(
+                padding: MaterialStateProperty.all<EdgeInsets>(
+                    const EdgeInsets.all(20)),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.lightBlue)),
+            onPressed: () {
+              _navigateToNextScreen(context);
+            },
+            child: const Text('Signup', style: TextStyle(fontSize: 20.0)),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
+          SizedBox(height: 16),
+          TextButton(
+            style: ButtonStyle(
+                padding: MaterialStateProperty.all<EdgeInsets>(
+                    const EdgeInsets.all(20)),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.lightBlue)),
+            onPressed: () {
+              LoginWidget();
+            },
+            child: const Text('Login', style: TextStyle(fontSize: 20.0)),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.save),
-            label: 'Saved',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
-      ),
-    );
-  }
-}
-
-
-
-class HomeView extends StatelessWidget {
-  const HomeView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column (
-          children: <Widget> [
-              Expanded(
-                flex: 3,
-                child: Container (
-                margin: const EdgeInsets.all(40.0),
-                padding: const EdgeInsets.all(30.0),
-                color: Colors.grey[400],
-                  child: Image.asset('flutter/assets/Images/trail.jpeg'),
+          Expanded(
+            flex: 3,
+            child: Container(
+              alignment: Alignment.topCenter,
+              margin: const EdgeInsets.all(0),
+              padding: const EdgeInsets.all(20.0),
+              color: Colors.white,
+              child: Image.asset('assets/images/trail.jpeg'),
             ),
           ),
-
-        ]
-      )
-    );
+        ]));
   }
 }
-
-
-enum SingingCharacter { Easy, Medium, Hard }
-
-class SearchWidget extends StatefulWidget {
-  const SearchWidget({super.key});
-
-  @override
-  State<SearchWidget> createState() => _SearchWidgetState();
-}
-
-
-class _SearchWidgetState extends State<SearchWidget> {
-  SingingCharacter? _difficulty = SingingCharacter.Easy;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-            title: const Text('Hiking Trails in Georgia'),
-            centerTitle: true,
-            backgroundColor: Colors.red[600]
-        ),
-        body: Column (
-            children: <Widget> [
-               const TextField(
-                   decoration: InputDecoration(
-                       border: OutlineInputBorder(),
-                       hintText: 'Enter an area',
-                  ),
-               ),
-              RadioListTile<SingingCharacter>(
-                title: const Text('Easy',
-                    style: TextStyle(fontSize: 20.0)),
-                value: SingingCharacter.Easy,
-                groupValue: _difficulty,
-                onChanged: (SingingCharacter? value) {
-                  setState(() {
-                   _difficulty = value;
-                  });
-                },
-              ),
-              RadioListTile<SingingCharacter>(
-                title: const Text('Medium',
-                    style: TextStyle(fontSize: 20.0)),
-                value: SingingCharacter.Medium,
-                groupValue: _difficulty,
-                onChanged: (SingingCharacter? value) {
-                  setState(() {
-                    _difficulty = value;
-                  });
-                },
-              ),
-              RadioListTile<SingingCharacter>(
-                title: const Text('Hard',
-                    style: TextStyle(fontSize: 20.0)),
-                value: SingingCharacter.Hard,
-                groupValue: _difficulty,
-                onChanged: (SingingCharacter? value) {
-                  setState(() {
-                    _difficulty = value;
-                  });
-                },
-              ),
-              FlatButton(
-                child: const Text('Search',
-                  style: TextStyle(fontSize: 20.0),),
-                  color: Colors.lightBlue,
-                onPressed: () {},
-              ),
-
-            ]
-        )
-    );
-  }
-}
-
-
-
-
-
 
 /*
 class AddImages extends StatefulWidget {
