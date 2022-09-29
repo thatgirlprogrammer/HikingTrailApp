@@ -14,67 +14,85 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: _title,
-      home: FirstView(),
+      home: AppController2(),
+    );
+  }
+}
+
+class AppController2 extends StatefulWidget {
+  const AppController2({super.key});
+
+  @override
+  State<AppController2> createState() => _AppControllerState2();
+}
+
+class _AppControllerState2 extends State<AppController2> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    FirstView(),
+    SignupWidget(),
+    LoginWidget(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title: const Text('Hiking Trails in Georgia'),
+          centerTitle: true,
+          backgroundColor: Colors.red[600]),
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Welcome',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.login),
+            label: 'Login',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            label: 'Signup',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
+      ),
     );
   }
 }
 
 class FirstView extends StatelessWidget {
   const FirstView({Key? key}) : super(key: key);
-  void _navigateToNextScreen(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => SignupWidget()));
-  }
-
-  void _navigateToNextScreen1(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => LoginWidget()));
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: const Text('Hiking Trails in Georgia'),
-            centerTitle: true,
-            backgroundColor: Colors.red[600]),
         body: Column(children: <Widget>[
-          TextButton(
-            style: ButtonStyle(
-                padding: MaterialStateProperty.all<EdgeInsets>(
-                    const EdgeInsets.all(20)),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.lightBlue)),
-            onPressed: () {
-              _navigateToNextScreen(context);
-            },
-            child: const Text('Signup', style: TextStyle(fontSize: 20.0)),
-          ),
-          SizedBox(height: 16),
-          TextButton(
-            style: ButtonStyle(
-                padding: MaterialStateProperty.all<EdgeInsets>(
-                    const EdgeInsets.all(20)),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.lightBlue)),
-            onPressed: () {
-              LoginWidget();
-            },
-            child: const Text('Login', style: TextStyle(fontSize: 20.0)),
-          ),
-          Expanded(
-            flex: 3,
-            child: Container(
-              alignment: Alignment.topCenter,
-              margin: const EdgeInsets.all(0),
-              padding: const EdgeInsets.all(20.0),
-              color: Colors.white,
-              child: Image.asset('assets/images/trail.jpeg'),
-            ),
-          ),
-        ]));
+      Expanded(
+        flex: 3,
+        child: Container(
+          alignment: Alignment.topCenter,
+          margin: const EdgeInsets.all(0),
+          padding: const EdgeInsets.all(20.0),
+          color: Colors.white,
+          child: Image.asset('assets/images/trail.jpeg'),
+        ),
+      ),
+    ]));
   }
 }
 
