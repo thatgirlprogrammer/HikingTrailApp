@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'AppController.dart';
 
@@ -9,9 +10,10 @@ class SignupWidget extends StatefulWidget {
 }
 
 class _SignupWidgetState extends State<SignupWidget> {
+  late final User user;
   void _navigateToNextScreen(BuildContext context) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const AppController()));
+        .push(MaterialPageRoute(builder: (context) => AppController()));
   }
 
   @override

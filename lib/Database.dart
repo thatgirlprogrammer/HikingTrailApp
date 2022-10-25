@@ -1,5 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'post.dart';
+import 'dart:developer' as developer;
 
 final databaseReference = FirebaseDatabase.instance.reference();
 
@@ -14,14 +15,16 @@ void updatePost(Post post, DatabaseReference id) {
 }
 
 Future<List<Post>> getAllPosts() async {
-  DataSnapshot dataSnapshot = await databaseReference.child('posts/').once();
+  DataSnapshot dataSnapshot =
+      (await databaseReference.child('posts/').once()) as DataSnapshot;
   List<Post> posts = [];
-  if (dataSnapshot.value != null) {
-    dataSnapshot.value.forEach((key, value) {
-      Post post = createPost(value);
-      post.setId(databaseReference.child('posts/' + key));
-      posts.add(post);
-    });
+  DataSnapshot? value = dataSnapshot.value as DataSnapshot?;
+  int? len = value?.children.length;
+
+  for (int i = 0; i < len!; i++) {
+    var value1 = value?.children.elementAt(i).value;
+    developer.log(value1.toString());
+    //Post post = new Post(value1)
   }
   return posts;
 }
