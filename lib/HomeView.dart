@@ -16,7 +16,7 @@ class HomeView extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: Container(
           child: const Text(
-            "Trails near you",
+            "Trails",
             style: TextStyle(fontSize: 30),
           ),
         ),

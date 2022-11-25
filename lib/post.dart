@@ -1,8 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'Database.dart';
 
-class Post {
+/*class Post {
   late String area_name;
   late DatabaseReference _id;
   //late double popularity;
@@ -85,4 +83,4 @@ Post createPost(record) {
     //attributes['avg_rating'],
   );
   return post;
-}
+}*/

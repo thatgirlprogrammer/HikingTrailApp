@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hiking_trail_app/post.dart';
 import 'AppController.dart';
 import 'Signup.dart';
 import 'Login.dart';

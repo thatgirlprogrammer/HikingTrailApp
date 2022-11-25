@@ -1,6 +1,4 @@
-import 'package:firebase_database/firebase_database.dart';
-import 'post.dart';
-import 'dart:developer' as developer;
+/*
 
 final databaseReference = FirebaseDatabase.instance.reference();
 
@@ -27,4 +25,4 @@ Future<List<Post>> getAllPosts() async {
     //Post post = new Post(value1)
   }
   return posts;
-}
+}*/
