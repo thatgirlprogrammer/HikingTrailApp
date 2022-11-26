@@ -3,10 +3,63 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:csv/csv.dart';
 import 'package:flutter/services.dart';
-import "AppController.dart";
 import 'package:flutter/material.dart';
 
 enum SingingCharacter { Easy, Medium, Hard }
+
+List<String> stateNames = [
+  "",
+  "Alabama",
+  "Alaska",
+  "Arizona",
+  "Arkansas",
+  "California",
+  "Colorado",
+  "Connecticut",
+  "Delaware",
+  "Florida",
+  "Georgia",
+  "Hawaii",
+  "Idaho",
+  "Illinois",
+  "Indiana",
+  "Iowa",
+  "Kansas",
+  "Kentucky",
+  "Louisiana",
+  "Maine",
+  "Maryland",
+  "Massachusetts",
+  "Michigan",
+  "Minnesota",
+  "Mississippi",
+  "Missouri",
+  "Montana",
+  "Nebraska",
+  "Nevada",
+  "New Hampshire",
+  "New Jersey",
+  "New Mexico",
+  "New York",
+  "North Carolina",
+  "North Dakota",
+  "Ohio",
+  "Oklahoma",
+  "Oregon",
+  "Pennsylvania",
+  "Rhode Island",
+  "South Carolina",
+  "South Dakota",
+  "Tennessee",
+  "Texas",
+  "Utah",
+  "Vermont",
+  "Virginia",
+  "Washington",
+  "West Virginia",
+  "Wisconsin",
+  "Wyoming"
+];
 
 class SearchWidget extends StatefulWidget {
   const SearchWidget({super.key});
@@ -23,11 +76,10 @@ class _SearchWidgetState extends State<SearchWidget> {
     return const CsvToListConverter().convert(result, eol: "\n");
   }
 
-  SingingCharacter? _difficulty = SingingCharacter.Easy;
-  String description = "";
   List features = [];
   List activities = [];
   List states = [];
+  String description = "";
 
   final List<bool> _values = [
     false,
@@ -68,56 +120,10 @@ class _SearchWidgetState extends State<SearchWidget> {
     false,
     false,
     false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
   ];
+
   TextEditingController myController = TextEditingController();
+  String dropdownValue = stateNames.first;
 
   @override
   Widget build(BuildContext context) {
@@ -136,6 +142,34 @@ class _SearchWidgetState extends State<SearchWidget> {
                       "Select Features",
                       style: TextStyle(fontSize: 40),
                     ),
+                  ),
+                  Container(
+                      child: const Text(
+                    "Select State",
+                    style: TextStyle(fontSize: 20),
+                  )),
+                  DropdownButton<String>(
+                    value: dropdownValue,
+                    icon: const Icon(Icons.arrow_downward),
+                    elevation: 16,
+                    style: const TextStyle(color: Colors.deepPurple),
+                    underline: Container(
+                      height: 2,
+                      color: Colors.deepPurpleAccent,
+                    ),
+                    onChanged: (String? value) {
+                      // This is called when the user selects an item.
+                      setState(() {
+                        dropdownValue = value!;
+                      });
+                    },
+                    items: stateNames
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
                   Container(
                     /** CheckboxListTile Widget **/
@@ -199,27 +233,56 @@ class _SearchWidgetState extends State<SearchWidget> {
                     /** CheckboxListTile Widget **/
                     child: CheckboxListTile(
                       title: const Text(
-                        'Dogs-no',
+                        'Cave',
                         style: TextStyle(fontSize: 20),
                       ),
                       subtitle: const Text(
-                        'Dogs are not allowed on trail ',
+                        'The trail goes in a cave',
                         style: TextStyle(fontSize: 20),
                       ),
                       autofocus: false,
                       activeColor: Colors.green,
                       checkColor: Colors.white,
-                      selected: _values[2],
+                      selected: _values[17],
                       dense: true,
-                      value: _values[2],
+                      value: _values[17],
                       onChanged: (bool? value) {
                         setState(() {
-                          _values[2] = value!;
+                          _values[17] = value!;
                         });
-                        if (_values[2] == true) {
-                          features.add('dogs-no');
+                        if (_values[17] == true) {
+                          features.add('cave');
                         } else {
-                          features.remove('dogs-no');
+                          features.remove('cave');
+                        }
+                      },
+                    ), //CheckboxListTile
+                  ),
+                  Container(
+                    /** CheckboxListTile Widget **/
+                    child: CheckboxListTile(
+                      title: const Text(
+                        'City-walk',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      subtitle: const Text(
+                        'Trail is in a city',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      autofocus: false,
+                      activeColor: Colors.green,
+                      checkColor: Colors.white,
+                      selected: _values[19],
+                      dense: true,
+                      value: _values[19],
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _values[19] = value!;
+                        });
+                        if (_values[19] == true) {
+                          features.add('city-walk');
+                        } else {
+                          features.remove('city-walk');
                         }
                       },
                     ), //CheckboxListTile
@@ -286,6 +349,35 @@ class _SearchWidgetState extends State<SearchWidget> {
                     /** CheckboxListTile Widget **/
                     child: CheckboxListTile(
                       title: const Text(
+                        'Dogs-no',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      subtitle: const Text(
+                        'Dogs are not allowed on trail ',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      autofocus: false,
+                      activeColor: Colors.green,
+                      checkColor: Colors.white,
+                      selected: _values[2],
+                      dense: true,
+                      value: _values[2],
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _values[2] = value!;
+                        });
+                        if (_values[2] == true) {
+                          features.add('dogs-no');
+                        } else {
+                          features.remove('dogs-no');
+                        }
+                      },
+                    ), //CheckboxListTile
+                  ),
+                  Container(
+                    /** CheckboxListTile Widget **/
+                    child: CheckboxListTile(
+                      title: const Text(
                         'Forest',
                         style: TextStyle(fontSize: 20),
                       ),
@@ -315,6 +407,64 @@ class _SearchWidgetState extends State<SearchWidget> {
                     /** CheckboxListTile Widget **/
                     child: CheckboxListTile(
                       title: const Text(
+                        'Historic-site',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      subtitle: const Text(
+                        'Trail has a historic-site',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      autofocus: false,
+                      activeColor: Colors.green,
+                      checkColor: Colors.white,
+                      selected: _values[18],
+                      dense: true,
+                      value: _values[18],
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _values[18] = value!;
+                        });
+                        if (_values[18] == true) {
+                          features.add('historic-site');
+                        } else {
+                          features.remove('historic-site');
+                        }
+                      },
+                    ), //CheckboxListTile
+                  ),
+                  Container(
+                    /** CheckboxListTile Widget **/
+                    child: CheckboxListTile(
+                      title: const Text(
+                        'Hot-springs',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      subtitle: const Text(
+                        'Trail has hot-springs',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      autofocus: false,
+                      activeColor: Colors.green,
+                      checkColor: Colors.white,
+                      selected: _values[16],
+                      dense: true,
+                      value: _values[16],
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _values[16] = value!;
+                        });
+                        if (_values[16] == true) {
+                          features.add('hot-springs');
+                        } else {
+                          features.remove('hot-springs');
+                        }
+                      },
+                    ), //CheckboxListTile
+                  ),
+                  Container(
+                    /** CheckboxListTile Widget **/
+                    child: CheckboxListTile(
+                      title: const Text(
                         'Kids',
                         style: TextStyle(fontSize: 20),
                       ),
@@ -336,6 +486,35 @@ class _SearchWidgetState extends State<SearchWidget> {
                           features.add('kids');
                         } else {
                           features.remove('kids');
+                        }
+                      },
+                    ), //CheckboxListTile
+                  ),
+                  Container(
+                    /** CheckboxListTile Widget **/
+                    child: CheckboxListTile(
+                      title: const Text(
+                        'Lake',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      subtitle: const Text(
+                        'Trail has a lake',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      autofocus: false,
+                      activeColor: Colors.green,
+                      checkColor: Colors.white,
+                      selected: _values[15],
+                      dense: true,
+                      value: _values[15],
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _values[15] = value!;
+                        });
+                        if (_values[15] == true) {
+                          features.add('lake');
+                        } else {
+                          features.remove('lake');
                         }
                       },
                     ), //CheckboxListTile
@@ -394,6 +573,35 @@ class _SearchWidgetState extends State<SearchWidget> {
                           features.add('paved');
                         } else {
                           features.remove('paved');
+                        }
+                      },
+                    ), //CheckboxListTile
+                  ),
+                  Container(
+                    /** CheckboxListTile Widget **/
+                    child: CheckboxListTile(
+                      title: const Text(
+                        'Rails-trails',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      subtitle: const Text(
+                        'Trail has a railroad',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      autofocus: false,
+                      activeColor: Colors.green,
+                      checkColor: Colors.white,
+                      selected: _values[20],
+                      dense: true,
+                      value: _values[20],
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _values[20] = value!;
+                        });
+                        if (_values[20] == true) {
+                          features.add('rails-trails');
+                        } else {
+                          features.remove('rails-trails');
                         }
                       },
                     ), //CheckboxListTile
@@ -573,180 +781,6 @@ class _SearchWidgetState extends State<SearchWidget> {
                     ), //CheckboxListTile
                   ),
                   Container(
-                    /** CheckboxListTile Widget **/
-                    child: CheckboxListTile(
-                      title: const Text(
-                        'Lake',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      subtitle: const Text(
-                        'Trail has a lake',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      autofocus: false,
-                      activeColor: Colors.green,
-                      checkColor: Colors.white,
-                      selected: _values[15],
-                      dense: true,
-                      value: _values[15],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _values[15] = value!;
-                        });
-                        if (_values[15] == true) {
-                          features.add('lake');
-                        } else {
-                          features.remove('lake');
-                        }
-                      },
-                    ), //CheckboxListTile
-                  ),
-                  Container(
-                    /** CheckboxListTile Widget **/
-                    child: CheckboxListTile(
-                      title: const Text(
-                        'Hot-springs',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      subtitle: const Text(
-                        'Trail has hot-springs',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      autofocus: false,
-                      activeColor: Colors.green,
-                      checkColor: Colors.white,
-                      selected: _values[16],
-                      dense: true,
-                      value: _values[16],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _values[16] = value!;
-                        });
-                        if (_values[16] == true) {
-                          features.add('hot-springs');
-                        } else {
-                          features.remove('hot-springs');
-                        }
-                      },
-                    ), //CheckboxListTile
-                  ),
-                  Container(
-                    /** CheckboxListTile Widget **/
-                    child: CheckboxListTile(
-                      title: const Text(
-                        'Cave',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      subtitle: const Text(
-                        'The trail goes in a cave',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      autofocus: false,
-                      activeColor: Colors.green,
-                      checkColor: Colors.white,
-                      selected: _values[17],
-                      dense: true,
-                      value: _values[17],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _values[17] = value!;
-                        });
-                        if (_values[17] == true) {
-                          features.add('cave');
-                        } else {
-                          features.remove('cave');
-                        }
-                      },
-                    ), //CheckboxListTile
-                  ),
-                  Container(
-                    /** CheckboxListTile Widget **/
-                    child: CheckboxListTile(
-                      title: const Text(
-                        'Historic-site',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      subtitle: const Text(
-                        'Trail has a historic-site',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      autofocus: false,
-                      activeColor: Colors.green,
-                      checkColor: Colors.white,
-                      selected: _values[18],
-                      dense: true,
-                      value: _values[18],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _values[18] = value!;
-                        });
-                        if (_values[18] == true) {
-                          features.add('historic-site');
-                        } else {
-                          features.remove('historic-site');
-                        }
-                      },
-                    ), //CheckboxListTile
-                  ),
-                  Container(
-                    /** CheckboxListTile Widget **/
-                    child: CheckboxListTile(
-                      title: const Text(
-                        'City-walk',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      subtitle: const Text(
-                        'Trail is in a city',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      autofocus: false,
-                      activeColor: Colors.green,
-                      checkColor: Colors.white,
-                      selected: _values[19],
-                      dense: true,
-                      value: _values[19],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _values[19] = value!;
-                        });
-                        if (_values[19] == true) {
-                          features.add('city-walk');
-                        } else {
-                          features.remove('city-walk');
-                        }
-                      },
-                    ), //CheckboxListTile
-                  ),
-                  Container(
-                    /** CheckboxListTile Widget **/
-                    child: CheckboxListTile(
-                      title: const Text(
-                        'Rails-trails',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      subtitle: const Text(
-                        'Trail has a railroad',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      autofocus: false,
-                      activeColor: Colors.green,
-                      checkColor: Colors.white,
-                      selected: _values[20],
-                      dense: true,
-                      value: _values[20],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _values[20] = value!;
-                        });
-                        if (_values[20] == true) {
-                          features.add('rails-trails');
-                        } else {
-                          features.remove('rails-trails');
-                        }
-                      },
-                    ), //CheckboxListTile
-                  ),
-                  Container(
                       child: const Text(
                     'Select Activities',
                     style: TextStyle(fontSize: 40),
@@ -871,143 +905,27 @@ class _SearchWidgetState extends State<SearchWidget> {
                     /** CheckboxListTile Widget **/
                     child: CheckboxListTile(
                       title: const Text(
-                        'Hiking',
+                        'Canoeing',
                         style: TextStyle(fontSize: 20),
                       ),
                       subtitle: const Text(
-                        'Trail has hiking',
+                        'Trail has canoeing',
                         style: TextStyle(fontSize: 20),
                       ),
                       autofocus: false,
                       activeColor: Colors.green,
                       checkColor: Colors.white,
-                      selected: _values[25],
+                      selected: _values[37],
                       dense: true,
-                      value: _values[25],
+                      value: _values[37],
                       onChanged: (bool? value) {
                         setState(() {
-                          _values[25] = value!;
+                          _values[37] = value!;
                         });
-                        if (_values[25] == true) {
-                          activities.add('hiking');
+                        if (_values[37] == true) {
+                          activities.add('canoeing');
                         } else {
-                          activities.remove('hiking');
-                        }
-                      },
-                    ), //CheckboxListTile
-                  ),
-                  Container(
-                    /** CheckboxListTile Widget **/
-                    child: CheckboxListTile(
-                      title: const Text(
-                        'Mountain-biking',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      subtitle: const Text(
-                        'Trail has Mountain-biking',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      autofocus: false,
-                      activeColor: Colors.green,
-                      checkColor: Colors.white,
-                      selected: _values[26],
-                      dense: true,
-                      value: _values[26],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _values[26] = value!;
-                        });
-                        if (_values[26] == true) {
-                          activities.add('mountain-biking');
-                        } else {
-                          activities.remove('mountain-biking');
-                        }
-                      },
-                    ), //CheckboxListTile
-                  ),
-                  Container(
-                    /** CheckboxListTile Widget **/
-                    child: CheckboxListTile(
-                      title: const Text(
-                        'Horseback-riding',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      subtitle: const Text(
-                        'Trail has horseback-riding',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      autofocus: false,
-                      activeColor: Colors.green,
-                      checkColor: Colors.white,
-                      selected: _values[27],
-                      dense: true,
-                      value: _values[27],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _values[27] = value!;
-                        });
-                        if (_values[27] == true) {
-                          activities.add('horseback-riding');
-                        } else {
-                          activities.remove('horseback-riding');
-                        }
-                      },
-                    ), //CheckboxListTile
-                  ),
-                  Container(
-                    /** CheckboxListTile Widget **/
-                    child: CheckboxListTile(
-                      title: const Text(
-                        'Nature-trips',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      subtitle: const Text(
-                        'Trail has nature-trips',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      autofocus: false,
-                      activeColor: Colors.green,
-                      checkColor: Colors.white,
-                      selected: _values[28],
-                      dense: true,
-                      value: _values[28],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _values[28] = value!;
-                        });
-                        if (_values[28] == true) {
-                          activities.add('nature-trips');
-                        } else {
-                          activities.remove('nature-trips');
-                        }
-                      },
-                    ), //CheckboxListTile
-                  ),
-                  Container(
-                    /** CheckboxListTile Widget **/
-                    child: CheckboxListTile(
-                      title: const Text(
-                        'Trail-running',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      subtitle: const Text(
-                        'Trail has trail-running',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      autofocus: false,
-                      activeColor: Colors.green,
-                      checkColor: Colors.white,
-                      selected: _values[29],
-                      dense: true,
-                      value: _values[29],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _values[29] = value!;
-                        });
-                        if (_values[29] == true) {
-                          activities.add('trail-running');
-                        } else {
-                          activities.remove('trail-running');
+                          activities.remove('canoeing');
                         }
                       },
                     ), //CheckboxListTile
@@ -1103,27 +1021,27 @@ class _SearchWidgetState extends State<SearchWidget> {
                     /** CheckboxListTile Widget **/
                     child: CheckboxListTile(
                       title: const Text(
-                        'Walking',
+                        'Hiking',
                         style: TextStyle(fontSize: 20),
                       ),
                       subtitle: const Text(
-                        'Trail has walking',
+                        'Trail has hiking',
                         style: TextStyle(fontSize: 20),
                       ),
                       autofocus: false,
                       activeColor: Colors.green,
                       checkColor: Colors.white,
-                      selected: _values[33],
+                      selected: _values[25],
                       dense: true,
-                      value: _values[33],
+                      value: _values[25],
                       onChanged: (bool? value) {
                         setState(() {
-                          _values[33] = value!;
+                          _values[25] = value!;
                         });
-                        if (_values[33] == true) {
-                          activities.add('walking');
+                        if (_values[25] == true) {
+                          activities.add('hiking');
                         } else {
-                          activities.remove('walking');
+                          activities.remove('hiking');
                         }
                       },
                     ), //CheckboxListTile
@@ -1132,259 +1050,27 @@ class _SearchWidgetState extends State<SearchWidget> {
                     /** CheckboxListTile Widget **/
                     child: CheckboxListTile(
                       title: const Text(
-                        'Paddle-sports',
+                        'Horseback-riding',
                         style: TextStyle(fontSize: 20),
                       ),
                       subtitle: const Text(
-                        'Trail has paddle-sports',
+                        'Trail has horseback-riding',
                         style: TextStyle(fontSize: 20),
                       ),
                       autofocus: false,
                       activeColor: Colors.green,
                       checkColor: Colors.white,
-                      selected: _values[34],
+                      selected: _values[27],
                       dense: true,
-                      value: _values[34],
+                      value: _values[27],
                       onChanged: (bool? value) {
                         setState(() {
-                          _values[34] = value!;
+                          _values[27] = value!;
                         });
-                        if (_values[34] == true) {
-                          activities.add('paddle-sports');
+                        if (_values[27] == true) {
+                          activities.add('horseback-riding');
                         } else {
-                          activities.remove('paddle-sports');
-                        }
-                      },
-                    ), //CheckboxListTile
-                  ),
-                  Container(
-                    /** CheckboxListTile Widget **/
-                    child: CheckboxListTile(
-                      title: const Text(
-                        'Snow-shoeing',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      subtitle: const Text(
-                        'Trail has snow-shoeing',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      autofocus: false,
-                      activeColor: Colors.green,
-                      checkColor: Colors.white,
-                      selected: _values[35],
-                      dense: true,
-                      value: _values[35],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _values[35] = value!;
-                        });
-                        if (_values[35] == true) {
-                          activities.add('snow-shoeing');
-                        } else {
-                          activities.remove('snow-shoeing');
-                        }
-                      },
-                    ), //CheckboxListTile
-                  ),
-                  Container(
-                    /** CheckboxListTile Widget **/
-                    child: CheckboxListTile(
-                      title: const Text(
-                        'Whitewater-kayaking',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      subtitle: const Text(
-                        'Trail has whitewater-kayaking',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      autofocus: false,
-                      activeColor: Colors.green,
-                      checkColor: Colors.white,
-                      selected: _values[36],
-                      dense: true,
-                      value: _values[36],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _values[36] = value!;
-                        });
-                        if (_values[36] == true) {
-                          activities.add('whitewater-kayaking');
-                        } else {
-                          activities.remove('whitewater-kayaking');
-                        }
-                      },
-                    ), //CheckboxListTile
-                  ),
-                  Container(
-                    /** CheckboxListTile Widget **/
-                    child: CheckboxListTile(
-                      title: const Text(
-                        'Canoeing',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      subtitle: const Text(
-                        'Trail has canoeing',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      autofocus: false,
-                      activeColor: Colors.green,
-                      checkColor: Colors.white,
-                      selected: _values[37],
-                      dense: true,
-                      value: _values[37],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _values[37] = value!;
-                        });
-                        if (_values[37] == true) {
-                          activities.add('canoeing');
-                        } else {
-                          activities.remove('canoeing');
-                        }
-                      },
-                    ), //CheckboxListTile
-                  ),
-                  Container(
-                    /** CheckboxListTile Widget **/
-                    child: CheckboxListTile(
-                      title: const Text(
-                        'Rock-climbing',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      subtitle: const Text(
-                        'Trail has rock-climbing',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      autofocus: false,
-                      activeColor: Colors.green,
-                      checkColor: Colors.white,
-                      selected: _values[38],
-                      dense: true,
-                      value: _values[38],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _values[38] = value!;
-                        });
-                        if (_values[38] == true) {
-                          activities.add('rock-climbing');
-                        } else {
-                          activities.remove('rock-climbing');
-                        }
-                      },
-                    ), //CheckboxListTile
-                  ),
-                  Container(
-                    /** CheckboxListTile Widget **/
-                    child: CheckboxListTile(
-                      title: const Text(
-                        'Skiing',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      subtitle: const Text(
-                        'Trail has skiing',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      autofocus: false,
-                      activeColor: Colors.green,
-                      checkColor: Colors.white,
-                      selected: _values[39],
-                      dense: true,
-                      value: _values[39],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _values[39] = value!;
-                        });
-                        if (_values[39] == true) {
-                          activities.add('skiing');
-                        } else {
-                          activities.remove('skiing');
-                        }
-                      },
-                    ), //CheckboxListTile
-                  ),
-                  Container(
-                    /** CheckboxListTile Widget **/
-                    child: CheckboxListTile(
-                      title: const Text(
-                        'Snowboarding',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      subtitle: const Text(
-                        'Trail has snowboarding',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      autofocus: false,
-                      activeColor: Colors.green,
-                      checkColor: Colors.white,
-                      selected: _values[40],
-                      dense: true,
-                      value: _values[40],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _values[40] = value!;
-                        });
-                        if (_values[40] == true) {
-                          activities.add('snowboarding');
-                        } else {
-                          activities.remove('snowboarding');
-                        }
-                      },
-                    ), //CheckboxListTile
-                  ),
-                  Container(
-                    /** CheckboxListTile Widget **/
-                    child: CheckboxListTile(
-                      title: const Text(
-                        'Off-road-driving',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      subtitle: const Text(
-                        'Trail has off-road-driving',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      autofocus: false,
-                      activeColor: Colors.green,
-                      checkColor: Colors.white,
-                      selected: _values[41],
-                      dense: true,
-                      value: _values[41],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _values[41] = value!;
-                        });
-                        if (_values[41] == true) {
-                          activities.add('off-road-driving');
-                        } else {
-                          activities.remove('off-road-driving');
-                        }
-                      },
-                    ), //CheckboxListTile
-                  ),
-                  Container(
-                    /** CheckboxListTile Widget **/
-                    child: CheckboxListTile(
-                      title: const Text(
-                        'Road-biking',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      subtitle: const Text(
-                        'Trail has road-biking',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      autofocus: false,
-                      activeColor: Colors.green,
-                      checkColor: Colors.white,
-                      selected: _values[42],
-                      dense: true,
-                      value: _values[42],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _values[42] = value!;
-                        });
-                        if (_values[42] == true) {
-                          activities.add('road-biking');
-                        } else {
-                          activities.remove('road-biking');
+                          activities.remove('horseback-riding');
                         }
                       },
                     ), //CheckboxListTile
@@ -1422,6 +1108,180 @@ class _SearchWidgetState extends State<SearchWidget> {
                     /** CheckboxListTile Widget **/
                     child: CheckboxListTile(
                       title: const Text(
+                        'Mountain-biking',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      subtitle: const Text(
+                        'Trail has Mountain-biking',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      autofocus: false,
+                      activeColor: Colors.green,
+                      checkColor: Colors.white,
+                      selected: _values[26],
+                      dense: true,
+                      value: _values[26],
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _values[26] = value!;
+                        });
+                        if (_values[26] == true) {
+                          activities.add('mountain-biking');
+                        } else {
+                          activities.remove('mountain-biking');
+                        }
+                      },
+                    ), //CheckboxListTile
+                  ),
+                  Container(
+                    /** CheckboxListTile Widget **/
+                    child: CheckboxListTile(
+                      title: const Text(
+                        'Nature-trips',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      subtitle: const Text(
+                        'Trail has nature-trips',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      autofocus: false,
+                      activeColor: Colors.green,
+                      checkColor: Colors.white,
+                      selected: _values[28],
+                      dense: true,
+                      value: _values[28],
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _values[28] = value!;
+                        });
+                        if (_values[28] == true) {
+                          activities.add('nature-trips');
+                        } else {
+                          activities.remove('nature-trips');
+                        }
+                      },
+                    ), //CheckboxListTile
+                  ),
+                  Container(
+                    /** CheckboxListTile Widget **/
+                    child: CheckboxListTile(
+                      title: const Text(
+                        'Off-road-driving',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      subtitle: const Text(
+                        'Trail has off-road-driving',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      autofocus: false,
+                      activeColor: Colors.green,
+                      checkColor: Colors.white,
+                      selected: _values[41],
+                      dense: true,
+                      value: _values[41],
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _values[41] = value!;
+                        });
+                        if (_values[41] == true) {
+                          activities.add('off-road-driving');
+                        } else {
+                          activities.remove('off-road-driving');
+                        }
+                      },
+                    ), //CheckboxListTile
+                  ),
+                  Container(
+                    /** CheckboxListTile Widget **/
+                    child: CheckboxListTile(
+                      title: const Text(
+                        'Paddle-sports',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      subtitle: const Text(
+                        'Trail has paddle-sports',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      autofocus: false,
+                      activeColor: Colors.green,
+                      checkColor: Colors.white,
+                      selected: _values[34],
+                      dense: true,
+                      value: _values[34],
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _values[34] = value!;
+                        });
+                        if (_values[34] == true) {
+                          activities.add('paddle-sports');
+                        } else {
+                          activities.remove('paddle-sports');
+                        }
+                      },
+                    ), //CheckboxListTile
+                  ),
+                  Container(
+                    /** CheckboxListTile Widget **/
+                    child: CheckboxListTile(
+                      title: const Text(
+                        'Road-biking',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      subtitle: const Text(
+                        'Trail has road-biking',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      autofocus: false,
+                      activeColor: Colors.green,
+                      checkColor: Colors.white,
+                      selected: _values[42],
+                      dense: true,
+                      value: _values[42],
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _values[42] = value!;
+                        });
+                        if (_values[42] == true) {
+                          activities.add('road-biking');
+                        } else {
+                          activities.remove('road-biking');
+                        }
+                      },
+                    ), //CheckboxListTile
+                  ),
+                  Container(
+                    /** CheckboxListTile Widget **/
+                    child: CheckboxListTile(
+                      title: const Text(
+                        'Rock-climbing',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      subtitle: const Text(
+                        'Trail has rock-climbing',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      autofocus: false,
+                      activeColor: Colors.green,
+                      checkColor: Colors.white,
+                      selected: _values[38],
+                      dense: true,
+                      value: _values[38],
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _values[38] = value!;
+                        });
+                        if (_values[38] == true) {
+                          activities.add('rock-climbing');
+                        } else {
+                          activities.remove('rock-climbing');
+                        }
+                      },
+                    ), //CheckboxListTile
+                  ),
+                  Container(
+                    /** CheckboxListTile Widget **/
+                    child: CheckboxListTile(
+                      title: const Text(
                         'Scenic-driving',
                         style: TextStyle(fontSize: 20),
                       ),
@@ -1443,6 +1303,64 @@ class _SearchWidgetState extends State<SearchWidget> {
                           activities.add('scenic-driving');
                         } else {
                           activities.remove('scenic-driving');
+                        }
+                      },
+                    ), //CheckboxListTile
+                  ),
+                  Container(
+                    /** CheckboxListTile Widget **/
+                    child: CheckboxListTile(
+                      title: const Text(
+                        'Sea-kayaking',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      subtitle: const Text(
+                        'Trail has sea-kayaking',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      autofocus: false,
+                      activeColor: Colors.green,
+                      checkColor: Colors.white,
+                      selected: _values[46],
+                      dense: true,
+                      value: _values[46],
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _values[46] = value!;
+                        });
+                        if (_values[46] == true) {
+                          activities.add('sea-kayaking');
+                        } else {
+                          activities.remove('sea-kayaking');
+                        }
+                      },
+                    ), //CheckboxListTile
+                  ),
+                  Container(
+                    /** CheckboxListTile Widget **/
+                    child: CheckboxListTile(
+                      title: const Text(
+                        'Skiing',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      subtitle: const Text(
+                        'Trail has skiing',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      autofocus: false,
+                      activeColor: Colors.green,
+                      checkColor: Colors.white,
+                      selected: _values[39],
+                      dense: true,
+                      value: _values[39],
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _values[39] = value!;
+                        });
+                        if (_values[39] == true) {
+                          activities.add('skiing');
+                        } else {
+                          activities.remove('skiing');
                         }
                       },
                     ), //CheckboxListTile
@@ -1480,44 +1398,146 @@ class _SearchWidgetState extends State<SearchWidget> {
                     /** CheckboxListTile Widget **/
                     child: CheckboxListTile(
                       title: const Text(
-                        'Sea-kayaking',
+                        'Snowboarding',
                         style: TextStyle(fontSize: 20),
                       ),
                       subtitle: const Text(
-                        'Trail has sea-kayaking',
+                        'Trail has snowboarding',
                         style: TextStyle(fontSize: 20),
                       ),
                       autofocus: false,
                       activeColor: Colors.green,
                       checkColor: Colors.white,
-                      selected: _values[46],
+                      selected: _values[40],
                       dense: true,
-                      value: _values[46],
+                      value: _values[40],
                       onChanged: (bool? value) {
                         setState(() {
-                          _values[46] = value!;
+                          _values[40] = value!;
                         });
-                        if (_values[46] == true) {
-                          activities.add('sea-kayaking');
+                        if (_values[40] == true) {
+                          activities.add('snowboarding');
                         } else {
-                          activities.remove('sea-kayaking');
+                          activities.remove('snowboarding');
                         }
                       },
                     ), //CheckboxListTile
                   ),
                   Container(
-                      child: const Text(
-                    "Enter State",
-                    style: TextStyle(fontSize: 20),
-                  )),
-                  Container(
-                    child: TextField(
-                      controller: myController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Enter State',
+                    /** CheckboxListTile Widget **/
+                    child: CheckboxListTile(
+                      title: const Text(
+                        'Snow-shoeing',
+                        style: TextStyle(fontSize: 20),
                       ),
-                    ),
+                      subtitle: const Text(
+                        'Trail has snow-shoeing',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      autofocus: false,
+                      activeColor: Colors.green,
+                      checkColor: Colors.white,
+                      selected: _values[35],
+                      dense: true,
+                      value: _values[35],
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _values[35] = value!;
+                        });
+                        if (_values[35] == true) {
+                          activities.add('snow-shoeing');
+                        } else {
+                          activities.remove('snow-shoeing');
+                        }
+                      },
+                    ), //CheckboxListTile
+                  ),
+                  Container(
+                    /** CheckboxListTile Widget **/
+                    child: CheckboxListTile(
+                      title: const Text(
+                        'Trail-running',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      subtitle: const Text(
+                        'Trail has trail-running',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      autofocus: false,
+                      activeColor: Colors.green,
+                      checkColor: Colors.white,
+                      selected: _values[29],
+                      dense: true,
+                      value: _values[29],
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _values[29] = value!;
+                        });
+                        if (_values[29] == true) {
+                          activities.add('trail-running');
+                        } else {
+                          activities.remove('trail-running');
+                        }
+                      },
+                    ), //CheckboxListTile
+                  ),
+                  Container(
+                    /** CheckboxListTile Widget **/
+                    child: CheckboxListTile(
+                      title: const Text(
+                        'Walking',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      subtitle: const Text(
+                        'Trail has walking',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      autofocus: false,
+                      activeColor: Colors.green,
+                      checkColor: Colors.white,
+                      selected: _values[33],
+                      dense: true,
+                      value: _values[33],
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _values[33] = value!;
+                        });
+                        if (_values[33] == true) {
+                          activities.add('walking');
+                        } else {
+                          activities.remove('walking');
+                        }
+                      },
+                    ), //CheckboxListTile
+                  ),
+                  Container(
+                    /** CheckboxListTile Widget **/
+                    child: CheckboxListTile(
+                      title: const Text(
+                        'Whitewater-kayaking',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      subtitle: const Text(
+                        'Trail has whitewater-kayaking',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      autofocus: false,
+                      activeColor: Colors.green,
+                      checkColor: Colors.white,
+                      selected: _values[36],
+                      dense: true,
+                      value: _values[36],
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _values[36] = value!;
+                        });
+                        if (_values[36] == true) {
+                          activities.add('whitewater-kayaking');
+                        } else {
+                          activities.remove('whitewater-kayaking');
+                        }
+                      },
+                    ), //CheckboxListTile
                   ),
                   Container(
                       child: TextButton(
@@ -1527,7 +1547,9 @@ class _SearchWidgetState extends State<SearchWidget> {
                       foregroundColor:
                           MaterialStateProperty.all<Color>(Colors.white),
                     ),
-                    onPressed: () => filter(),
+                    onPressed: () {
+                      filter();
+                    },
                     child:
                         const Text('Search', style: TextStyle(fontSize: 30.0)),
                   )),
@@ -1546,70 +1568,82 @@ class _SearchWidgetState extends State<SearchWidget> {
   }
 
   filter() async {
-    List<List<dynamic>> selected_trails = [];
-    List<List<dynamic>> feature_vals = await processCsv();
-    List<List<dynamic>> feature_vals1 = feature_vals.sublist(1);
+    description = "";
+    List<List<dynamic>> selectedTrails = [];
+    List<List<dynamic>> featureVals = await processCsv();
+    List<List<dynamic>> featureVals1 = featureVals.sublist(1);
 
     if (features.isEmpty) {
-      selected_trails = feature_vals1;
+      selectedTrails = featureVals1;
     } else {
-      for (var row in feature_vals1) {
+      for (var row in featureVals1) {
         String list = row[15].replaceAll(" ", "");
         String list2 = list.replaceAll('\'', '"');
         List<String> list1 = json.decode(list2).cast<String>().toList();
 
         if (features.length > 1) {
           if (Set.of(list1).containsAll(features.toSet())) {
-            selected_trails.add(row);
+            selectedTrails.add(row);
           }
         } else {
           if (list1.contains(features[0])) {
-            selected_trails.add(row);
+            selectedTrails.add(row);
           }
         }
       }
     }
 
-    List<List<dynamic>> selected_trails1 = [];
+    List<List<dynamic>> selectedTrails1 = [];
     if (activities.isEmpty) {
-      selected_trails1 = selected_trails;
+      selectedTrails1 = selectedTrails;
     } else {
-      for (var row in feature_vals1) {
+      for (var row in selectedTrails) {
         String list = row[16].replaceAll(" ", "");
         String list2 = list.replaceAll('\'', '"');
         List<String> list1 = json.decode(list2).cast<String>().toList();
 
         if (activities.length > 1) {
           if (Set.of(list1).containsAll(activities.toSet())) {
-            selected_trails1.add(row);
+            selectedTrails1.add(row);
           }
         } else {
           if (list1.contains(activities[0])) {
-            selected_trails1.add(row);
+            selectedTrails1.add(row);
           }
         }
       }
     }
 
-    List<List<dynamic>> selected_trails2 = [];
-    String state = myController.text;
+    List<List<dynamic>> selectedTrails2 = [];
+    String state = dropdownValue;
     if (state == "") {
-      selected_trails2 = selected_trails1;
+      selectedTrails2 = selectedTrails1;
     } else {
-      for (var row in feature_vals1) {
-        String list = row[4].replaceAll(" ", "");
-        String list2 = list.replaceAll('\'', '"');
-        List<String> list1 = json.decode(list2).cast<String>().toList();
+      for (var row in selectedTrails1) {
+        String list = row[4];
 
-        if (list1.contains(state)) {
-          selected_trails2.add(row);
+        if (list.contains(state)) {
+          selectedTrails2.add(row);
         }
       }
     }
-    Set list = selected_trails2.toSet();
+
+    String trailInfo = "";
+    String moreInfo = "";
+    Set list = selectedTrails2.toSet();
     for (var value in list) {
-      description =
-          "${description}Trail name: ${value[1]}\nNational park: ${value[2]}\nState: ${value[4]}\nCity: ${value[3]}\nStart: ${value[6]}\nPopularity: ${value[7]}\nLength: ${value[8]}\nElevation gain: ${value[9]}\nDifficulty: ${value[10]}\nRoute type: ${value[11]}\nVisitor usage: ${value[12]}\nAverage rating: ${value[13]}\nNumber of reviews: ${value[14]}\nFeatures: ${value[15]}\nActivities: ${value[16]}\nUnits: ${value[17]}\n\n";
+      moreInfo = "${moreInfo}City: ${value[3]}\nStart: "
+          "${value[6]}\nPopularity: ${value[7]}\nLength: "
+          "${value[8]}\nElevation gain: ${value[9]}\nDifficulty: "
+          "${value[10]}\nRoute type: ${value[11]}\nVisitor usage: "
+          "${value[12]}\nAverage rating: ${value[13]}\nNumber of reviews: "
+          "${value[14]}\nFeatures: ${value[15]}\nActivities:"
+          " ${value[16]}\nUnits: ${value[17]}\n\n";
+
+      trailInfo = "${trailInfo}Trail name: ${value[1]}\nNational park: "
+          "${value[2]}\nState: ${value[4]}\nCity: "
+          "${value[3]}\n\n";
     }
+    setState(() => description = trailInfo);
   }
 }

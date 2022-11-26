@@ -39,7 +39,7 @@ class _AppControllerState extends State<AppController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Hiking Trails in Georgia'),
+          title: const Text('US National Park Trails'),
           centerTitle: true,
           backgroundColor: Colors.red[600]),
       body: Center(
@@ -57,7 +57,7 @@ class _AppControllerState extends State<AppController> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.save),
-            label: 'Saved',
+            label: 'Trail Data',
           ),
         ],
         currentIndex: _selectedIndex,
