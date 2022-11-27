@@ -22,6 +22,7 @@ class _AppControllerState extends State<AppController> {
   static final List<Widget> _widgetOptions = <Widget>[
     const HomeView(),
     const SearchWidget(),
+    const SavedWidget(),
   ];
 
   @override
@@ -39,9 +40,10 @@ class _AppControllerState extends State<AppController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('US National Park Trails'),
+          title: const Text('US National Park Trails',
+              style: TextStyle(fontSize: 20)),
           centerTitle: true,
-          backgroundColor: Colors.red[600]),
+          backgroundColor: Colors.blue),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),

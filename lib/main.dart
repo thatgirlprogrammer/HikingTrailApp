@@ -47,9 +47,11 @@ class _AppControllerState2 extends State<AppController2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Hiking Trails in Georgia'),
-          centerTitle: true,
-          backgroundColor: Colors.red[600]),
+        title: const Text('US National Park Hiking Trails',
+            style: TextStyle(fontSize: 20)),
+        centerTitle: true,
+        backgroundColor: Colors.blue,
+      ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
