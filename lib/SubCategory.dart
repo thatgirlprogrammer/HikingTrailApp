@@ -116,9 +116,9 @@ class _SubCategory extends State<SubCategory> {
                 child: Text(
                   "$trailName",
                   style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                  ),
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               Container(
@@ -129,17 +129,26 @@ class _SubCategory extends State<SubCategory> {
                   child: Row(children: [
                     Text(
                       "$difficulty",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
                     Text(
                       "$avgRating",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
                     Text(
                       "$reviews1",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
                     ),
                   ])),
               Container(
@@ -148,7 +157,10 @@ class _SubCategory extends State<SubCategory> {
                 width: MediaQuery.of(context).size.width,
                 child: Text(
                   "$nationalPark",
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               Container(
