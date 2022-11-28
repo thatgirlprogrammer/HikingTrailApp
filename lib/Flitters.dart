@@ -181,10 +181,10 @@ class _ActivityWidget extends State<ActivityWidget> {
             });
             if (selectedValues[i] == true) {
               activities.add(addValue[i]);
-              dataList[i]['isTaped'] = true;
+              dataList1[i]['isTaped'] = true;
             } else {
               activities.remove(addValue[i]);
-              dataList[i]['isTaped'] = false;
+              dataList1[i]['isTaped'] = false;
             }
           },
         ),

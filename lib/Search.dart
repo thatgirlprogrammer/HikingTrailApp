@@ -11,7 +11,7 @@ import 'Flitters.dart';
 enum SingingCharacter { Easy, Medium, Hard }
 
 List<String> stateNames = [
-  "",
+  "State",
   "Alabama",
   "Alaska",
   "Arizona",
@@ -118,67 +118,63 @@ class _SearchWidgetState extends State<SearchWidget> {
           physics: ScrollPhysics(),
           child: Column(
             children: <Widget>[
-              SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: const Text(
-                    textAlign: TextAlign.left,
-                    "Select State",
-                    style: TextStyle(fontSize: 40),
-                  )),
-              Row(children: <Widget>[
-                DropdownButton<String>(
-                  value: dropdownValue,
-                  icon: const Icon(Icons.arrow_downward),
-                  elevation: 16,
-                  style: const TextStyle(color: Colors.green),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.deepPurpleAccent,
-                  ),
-                  onChanged: (String? value) {
-                    // This is called when the user selects an item.
-                    setState(() {
-                      dropdownValue = value!;
-                    });
-                  },
-                  items:
-                      stateNames.map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-                Spacer(),
-                TextButton(
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.green),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                  ),
-                  onPressed: () {
-                    _navigateAndDisplaySelection(context);
-                  },
-                  child:
-                      const Text('Features', style: TextStyle(fontSize: 20.0)),
-                ),
-                Spacer(),
-                TextButton(
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.green),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                  ),
-                  onPressed: () {
-                    _navigateAndDisplaySelection1(context);
-                  },
-                  child: const Text('Activities',
-                      style: TextStyle(fontSize: 20.0)),
-                ),
-              ]),
               Container(
+                  padding: const EdgeInsets.all(5),
+                  child: Row(children: <Widget>[
+                    DropdownButton<String>(
+                      value: dropdownValue,
+                      icon: const Icon(Icons.arrow_downward),
+                      elevation: 16,
+                      style: const TextStyle(color: Colors.green),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.deepPurpleAccent,
+                      ),
+                      onChanged: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          dropdownValue = value!;
+                        });
+                      },
+                      items: stateNames
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value, style: TextStyle(fontSize: 20)),
+                        );
+                      }).toList(),
+                    ),
+                    Spacer(),
+                    TextButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.green),
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                      ),
+                      onPressed: () {
+                        _navigateAndDisplaySelection(context);
+                      },
+                      child: const Text('Features',
+                          style: TextStyle(fontSize: 20.0)),
+                    ),
+                    Spacer(),
+                    TextButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.green),
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                      ),
+                      onPressed: () {
+                        _navigateAndDisplaySelection1(context);
+                      },
+                      child: const Text('Activities',
+                          style: TextStyle(fontSize: 20.0)),
+                    ),
+                  ])),
+              Container(
+                  padding: EdgeInsets.all(5),
                   width: MediaQuery.of(context).size.width,
                   child: TextButton(
                     style: ButtonStyle(
@@ -241,15 +237,19 @@ class _SearchWidgetState extends State<SearchWidget> {
 
     for (var i = 0; i < strings.length; i++) {
       list.add(Container(
+          padding: EdgeInsets.all(5),
           width: MediaQuery.of(context).size.width,
-          child: TextButton(
-            style: ButtonStyle(
+          child: OutlinedButton(
+            style: OutlinedButton.styleFrom(
               alignment: Alignment.centerLeft,
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+              side: BorderSide(width: 3.0, color: Colors.blue),
             ),
             // passing the i value only, for clear int values
-            child: Text(strings[i],
-                style: TextStyle(fontSize: 20), textAlign: TextAlign.left),
+            child: Container(
+                padding: EdgeInsets.all(5),
+                child: Text(strings[i],
+                    style: TextStyle(fontSize: 20, color: Colors.black),
+                    textAlign: TextAlign.left)),
             onPressed: () {
               _navigateToNextScreen(
                   c,
@@ -323,7 +323,7 @@ class _SearchWidgetState extends State<SearchWidget> {
 
     List<List<dynamic>> selectedTrails2 = [];
     String state = dropdownValue;
-    if (state == "") {
+    if (state == "State") {
       selectedTrails2 = selectedTrails1;
     } else {
       for (var row in selectedTrails1) {
@@ -380,7 +380,7 @@ class _SearchWidgetState extends State<SearchWidget> {
         titles.add("${value[1]}");
       });
       setState(() {
-        texts.add("${value[1]}\n${value[2]}\nState: ${value[4]}\nRead More");
+        texts.add("${value[1]}\n${value[2]}\nState: ${value[4]}\n");
       });
       setState(() {
         trailNames.add('${value[1]}');
