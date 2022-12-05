@@ -92,7 +92,7 @@ class FirstView extends StatelessWidget {
           margin: const EdgeInsets.all(0),
           padding: const EdgeInsets.all(20.0),
           color: Colors.white,
-          child: Image.asset('assets/images/trail.jpeg'),
+          child: Image.asset('assets/images/NPSLogo.png'),
         ),
       ),
     ]));

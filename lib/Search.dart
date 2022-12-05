@@ -31,6 +31,7 @@ List<String> stateNames = [
   "Kentucky",
   "Louisiana",
   "Maine",
+  'Maui',
   "Maryland",
   "Massachusetts",
   "Michigan",

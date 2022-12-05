@@ -105,6 +105,7 @@ class _SubCategory extends State<SubCategory> {
     return Scaffold(
         appBar: AppBar(
           title: Text(title!),
+          backgroundColor: Colors.blue,
         ),
         body: Align(
             alignment: Alignment.topLeft,
